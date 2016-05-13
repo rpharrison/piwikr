@@ -31,7 +31,7 @@ describe_database <- function(db) {
 }
 
 get_actions <- function(db) {
-    actions <- .get(db, prefix'piwik_log_link_visit_action')
+    actions <- .get(db, prefix,'piwik_log_link_visit_action')
 
     actions <- .remove_empty_columns(actions)
 
