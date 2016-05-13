@@ -1,6 +1,6 @@
 ## [This page](https://developer.piwik.org/guides/persistence-and-the-mysql-backend) was useful in understanding the data stored by Piwik in MySQL.
 
-prefix <- "sc"
+prefix <- "scpiwik"
 # Add preliminary support for custom database prefixes
 
 describe_database <- function(db) {
