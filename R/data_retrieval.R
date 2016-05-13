@@ -65,7 +65,7 @@ get_actions <- function(db) {
 }
 
 get_visits <- function(db) {
-    visits <- .get(db, '\"prefix\"log_visit')
+    visits <- .get(db, 'log_visit')
     visits <- .remove_empty_columns(visits)
 
     visits$visit_first_action_time <- lubridate::ymd_hms(visits$visit_first_action_time)
