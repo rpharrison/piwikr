@@ -28,12 +28,12 @@ describe_database <- function(db) {
 }
 
 get_actions <- function(db) {
-    actions <- .get(db, 'piwik_log_link_visit_action')
+    actions <- .get(db, 'scpiwik_log_link_visit_action')
 
     actions <- .remove_empty_columns(actions)
 
     ## Set up metadata on action types
-    action_types <- .get(db, 'piwik_log_action')
+    action_types <- .get(db, 'scpiwik_log_action')
     path <- system.file("extdata", "action_types.csv", package="piwikr")
     metadata <- read.csv(path)
     action_types <- action_types %>% left_join(metadata, by=c('type'='id'))
@@ -62,7 +62,7 @@ get_actions <- function(db) {
 }
 
 get_visits <- function(db) {
-    visits <- .get(db, 'piwik_log_visit')
+    visits <- .get(db, 'scpiwik_log_visit')
     visits <- .remove_empty_columns(visits)
 
     visits$visit_first_action_time <- lubridate::ymd_hms(visits$visit_first_action_time)
