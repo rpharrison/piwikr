@@ -1,5 +1,8 @@
 ## [This page](https://developer.piwik.org/guides/persistence-and-the-mysql-backend) was useful in understanding the data stored by Piwik in MySQL.
+
 prefix <- "sc"
+# Add preliminary support for custom database prefixes
+
 describe_database <- function(db) {
     table_names <- dbGetQuery(db$con, 'show tables')[, 1]
     tables <- lapply(table_names, function(x) tbl(db, x) %>% as.data.frame())
@@ -33,7 +36,7 @@ get_actions <- function(db) {
     actions <- .remove_empty_columns(actions)
 
     ## Set up metadata on action types
-    action_types <- .get(db, 'scpiwik_log_action')
+    action_types <- .get(db, 'prefix', 'piwik_log_action')
     path <- system.file("extdata", "action_types.csv", package="piwikr")
     metadata <- read.csv(path)
     action_types <- action_types %>% left_join(metadata, by=c('type'='id'))
@@ -62,7 +65,7 @@ get_actions <- function(db) {
 }
 
 get_visits <- function(db) {
-    visits <- .get(db, 'scpiwik_log_visit')
+    visits <- .get(db, 'prefix', 'piwik_log_visit')
     visits <- .remove_empty_columns(visits)
 
     visits$visit_first_action_time <- lubridate::ymd_hms(visits$visit_first_action_time)
