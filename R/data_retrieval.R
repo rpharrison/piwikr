@@ -1,5 +1,5 @@
 ## [This page](https://developer.piwik.org/guides/persistence-and-the-mysql-backend) was useful in understanding the data stored by Piwik in MySQL.
-
+prefix <- 'sc'
 describe_database <- function(db) {
     table_names <- dbGetQuery(db$con, 'show tables')[, 1]
     tables <- lapply(table_names, function(x) tbl(db, x) %>% as.data.frame())
@@ -28,7 +28,7 @@ describe_database <- function(db) {
 }
 
 get_actions <- function(db) {
-    actions <- .get(db, 'scpiwik_log_link_visit_action')
+    actions <- .get(db'_(prefix)', 'piwik_log_link_visit_action')
 
     actions <- .remove_empty_columns(actions)
 
